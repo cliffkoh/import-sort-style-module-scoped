@@ -1,7 +1,7 @@
 # import-sort-style-module
 
 A style for [import-sort](https://github.com/renke/import-sort) that is focused
-on modules.
+on modules but with scope support.
 
 ```js
 // Absolute modules with side effects (not sorted because order may matter)
@@ -22,6 +22,11 @@ import * as path from "path";
 import aa from "aa";
 import bb from "bb";
 import cc from "cc";
+
+// Scoped modules
+import aa from "@myScope/aa";
+import bb from "@myScope/bb";
+import cc from "@yourScope/cc";
 
 // First-party modules sorted by "relative depth" and then by name
 import aaa from "../../aaa";
