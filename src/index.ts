@@ -1,5 +1,5 @@
-import { IStyleAPI, IStyleItem } from "import-sort-style";
-/* tslint:disable */
+import { IStyleAPI, IStyleItem } from 'import-sort-style';
+
 interface IImport {
   start: number;
   end: number;
@@ -12,13 +12,13 @@ interface IImport {
   namedMembers: NamedMember[];
 }
 
-declare type ImportType = "import" | "require" | "import-equals" | "import-type";
+declare type ImportType = 'import' | 'require' | 'import-equals' | 'import-type';
 declare type NamedMember = {
   name: string;
   alias: string;
 };
 
-export default function (styleApi: IStyleAPI): Array<IStyleItem> {
+export default function (styleApi: IStyleAPI): IStyleItem[] {
   const {
     alias,
     and,
@@ -29,7 +29,6 @@ export default function (styleApi: IStyleAPI): Array<IStyleItem> {
     isNodeModule,
     isRelativeModule,
     moduleName,
-    naturally,
     unicode,
   } = styleApi;
 
@@ -49,7 +48,7 @@ export default function (styleApi: IStyleAPI): Array<IStyleItem> {
     // import … from "fs";
     {
       match: isNodeModule,
-      sort: moduleName(naturally),
+      sort: moduleName(unicode),
       sortNamedMembers: alias(unicode),
     },
     { separator: true },
@@ -57,7 +56,7 @@ export default function (styleApi: IStyleAPI): Array<IStyleItem> {
     // import … from "foo";
     {
       match: and(isAbsoluteModule, not(isScopedModule)),
-      sort: moduleName(naturally),
+      sort: moduleName(unicode),
       sortNamedMembers: alias(unicode),
     },
     { separator: true },
@@ -65,7 +64,7 @@ export default function (styleApi: IStyleAPI): Array<IStyleItem> {
     // import … from "foo";
     {
       match: isScopedModule,
-      sort: moduleName(naturally),
+      sort: moduleName(unicode),
       sortNamedMembers: alias(unicode),
     },
     { separator: true },
@@ -74,7 +73,7 @@ export default function (styleApi: IStyleAPI): Array<IStyleItem> {
     // import … from "../foo";
     {
       match: isRelativeModule,
-      sort: [dotSegmentCount, moduleName(naturally)],
+      sort: [dotSegmentCount, moduleName(unicode)],
       sortNamedMembers: alias(unicode),
     },
     { separator: true },
